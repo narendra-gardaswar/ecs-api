@@ -1,4 +1,5 @@
 import { INestApplication, Logger } from '@nestjs/common';
+import setupSwagger from './core/swagger/swagger';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
@@ -18,6 +19,7 @@ function setup(app: INestApplication) {
   const logger = app.get(Logger);
   app.use(helmet());
   app.use(getHttpLogger(logger));
+  setupSwagger(app);
 }
 
 export default setup;
