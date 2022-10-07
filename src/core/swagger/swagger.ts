@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import packageJson from '../../../package.json';
 
 function setupSwagger(app: INestApplication) {
-  const logger = app.get(Logger);
+  const logger = new Logger(setupSwagger.name);
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') as number;
   const config = new DocumentBuilder()
