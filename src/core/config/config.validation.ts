@@ -6,3 +6,9 @@ export const configValidations = Joi.object().keys({
     .equal('production', 'development')
     .default('development'),
 });
+
+export enum EnvVariable {
+  NODE_ENV = 'NODE_ENV',
+  PORT = 'PORT',
+  MONGODB_URL = 'MONGODB_URL',
+}

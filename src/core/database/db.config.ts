@@ -4,16 +4,18 @@ import {
   MongooseModuleOptions,
 } from '@nestjs/mongoose';
 import { set } from 'mongoose';
+import { EnvVariable } from '../config/config.validation';
 
 export const dbOptions: MongooseModuleAsyncOptions = {
   useFactory: async (configService: ConfigService) => {
-    const env = configService.get<string>('NODE_ENV') as string;
-    let dbENVVariable = 'MONGODB_URL_PRODUCTION';
+    const env = configService.get(EnvVariable.NODE_ENV);
     if (env !== 'production') {
-      dbENVVariable = 'MONGODB_URL_STAGING';
+      /**
+       * @info used to log mongo queries
+       */
       set('debug', true);
     }
-    const uri = configService.get<string>(dbENVVariable) as string;
+    const uri = configService.get(EnvVariable.MONGODB_URL);
     const options: MongooseModuleOptions = {
       uri,
     };
