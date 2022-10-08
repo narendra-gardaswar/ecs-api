@@ -1,5 +1,3 @@
-
-
 ## Description
 
 [ECS] REST-API
@@ -41,6 +39,3 @@ $ npm run test:cov
 ```bash
 npm run commit
 ```
-
-
-
