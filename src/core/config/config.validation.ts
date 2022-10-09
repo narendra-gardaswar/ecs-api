@@ -7,6 +7,7 @@ export const configValidations = Joi.object().keys({
     .default('development'),
   MONGODB_URL: Joi.string(),
   API_TOKEN: Joi.string(),
+  JWT_SECRET: Joi.string(),
 });
 
 export enum EnvVariable {
@@ -14,4 +15,5 @@ export enum EnvVariable {
   PORT = 'PORT',
   MONGODB_URL = 'MONGODB_URL',
   API_TOKEN = 'API_TOKEN',
+  JWT_SECRET = 'JWT_SECRET',
 }

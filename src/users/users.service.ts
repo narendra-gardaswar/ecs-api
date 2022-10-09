@@ -5,9 +5,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { AuthService } from '../shared/auth/auth.service';
-import { ResponseMessage } from '../shared/models/util.model';
+import { CommonResponse, ResponseMessage } from '../shared/models/util.model';
 import { UserDTO } from './users.dtos';
-import { User } from './users.model';
+import { User, UserRoles } from './users.model';
 import { UsersRepo } from './users.repo';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class UsersService {
     return user;
   }
 
-  async signUp(userData: UserDTO): Promise<User> {
+  async signUp(userData: UserDTO): Promise<CommonResponse> {
     const { email, password } = userData;
     const userExists = await this.userRepo.getUserByEmail(email);
     if (userExists) {
@@ -35,6 +35,7 @@ export class UsersService {
     const saveUser = {
       ...userData,
       password: passwordHash,
+      role: UserRoles.USER,
     };
     const user = await this.userRepo.createUser(saveUser);
     if (!user) {
@@ -42,6 +43,13 @@ export class UsersService {
         ResponseMessage.FAILED_TO_CREATE_USER,
       );
     }
-    return user;
+    const token = await this.authService.generateJwtToken({
+      id: user._id,
+      role: user.role,
+    });
+    return {
+      response_message: ResponseMessage.USER_CREATED,
+      response_data: { token: token },
+    };
   }
 }

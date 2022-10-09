@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
-import { CommonResponse, ResponseMessage } from '../shared/models/util.model';
+import { CommonResponse } from '../shared/models/util.model';
 import { UserDTO } from './users.dtos';
 import { UsersService } from './users.service';
 
@@ -16,8 +16,7 @@ export class UsersController {
   @Post('/signup')
   async signUp(@Body() userData: UserDTO): Promise<CommonResponse> {
     try {
-      const user = await this.usersService.signUp(userData);
-      return { response_message: ResponseMessage.CREATED, response_data: user };
+      return this.usersService.signUp(userData);
     } catch (error) {
       this.logger.error(error);
       throw error;

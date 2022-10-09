@@ -28,7 +28,7 @@ export class User {
   @Prop({ type: String, trim: true, lowercase: true })
   email: string;
 
-  @Prop({ type: String })
+  @Prop({ type: String, select: false })
   password: string;
 
   @Prop({ type: String, enum: Object.values(UserRoles) })
@@ -39,6 +39,10 @@ export class User {
 
   @Prop({ type: String })
   mobileNumber: string;
+
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
