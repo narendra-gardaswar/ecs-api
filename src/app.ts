@@ -1,4 +1,4 @@
-import { INestApplication, Logger } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import setupSwagger from './core/swagger/swagger';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -18,6 +18,7 @@ function getHttpLogger(logger: Logger) {
 function setup(app: INestApplication) {
   const logger = app.get(Logger);
   app.use(helmet());
+  app.useGlobalPipes(new ValidationPipe());
   app.use(getHttpLogger(logger));
   setupSwagger(app);
 }
