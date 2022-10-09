@@ -4,8 +4,8 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { AuthService } from '../common/auth/auth.service';
-import { ResponseMessage } from '../common/models/util.model';
+import { AuthService } from '../shared/auth/auth.service';
+import { ResponseMessage } from '../shared/models/util.model';
 import { UserDTO } from './users.dtos';
 import { User } from './users.model';
 import { UsersRepo } from './users.repo';

@@ -6,10 +6,12 @@ export const configValidations = Joi.object().keys({
     .equal('production', 'development')
     .default('development'),
   MONGODB_URL: Joi.string(),
+  API_TOKEN: Joi.string(),
 });
 
 export enum EnvVariable {
   NODE_ENV = 'NODE_ENV',
   PORT = 'PORT',
   MONGODB_URL = 'MONGODB_URL',
+  API_TOKEN = 'API_TOKEN',
 }

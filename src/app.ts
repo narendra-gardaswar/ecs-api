@@ -2,6 +2,9 @@ import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import setupSwagger from './core/swagger/swagger';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { Reflector } from '@nestjs/core';
+import { AuthService } from './shared/auth/auth.service';
+import { ApiGuard } from './shared/guards/api.guard';
 
 function getHttpLogger(logger: Logger) {
   const options = {
@@ -21,6 +24,9 @@ function setup(app: INestApplication) {
   app.useGlobalPipes(new ValidationPipe());
   app.use(getHttpLogger(logger));
   setupSwagger(app);
+  const reflector = app.get(Reflector);
+  const authService = app.get(AuthService);
+  app.useGlobalGuards(new ApiGuard(reflector, authService));
 }
 
 export default setup;

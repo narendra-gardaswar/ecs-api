@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
-import { CommonResponse, ResponseMessage } from '../common/models/util.model';
+import { CommonResponse, ResponseMessage } from '../shared/models/util.model';
 import { UserDTO } from './users.dtos';
 import { UsersService } from './users.service';
 

@@ -1,8 +1,8 @@
 import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './common/auth/auth.module';
-import { UtilService } from './common/services/util.service';
+import { AuthModule } from './shared/auth/auth.module';
+import { UtilService } from './shared/services/util.service';
 import { CoreModule } from './core/core.module';
 import { UsersModule } from './users/users.module';
 
