@@ -20,6 +20,6 @@ export class UsersRepo {
   }
 
   async getUserByEmail(email: string): Promise<User | null> {
-    return this.userModel.findOne({ email: email });
+    return this.userModel.findOne({ email: email }).populate('password');
   }
 }

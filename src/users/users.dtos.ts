@@ -1,4 +1,10 @@
-import { IsEmail, IsString, Length, Matches } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  Length,
+  Matches,
+} from 'class-validator';
 
 export class UserDTO {
   @IsString()
@@ -26,4 +32,14 @@ export class UserDTO {
   @IsString()
   @Length(10, 11)
   mobileNumber: string;
+}
+
+export class LoginDTO {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 }

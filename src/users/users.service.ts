@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from '../shared/auth/auth.service';
 import { CommonResponse, ResponseMessage } from '../shared/models/util.model';
-import { UserDTO } from './users.dtos';
+import { LoginDTO, UserDTO } from './users.dtos';
 import { User, UserRoles } from './users.model';
 import { UsersRepo } from './users.repo';
 
@@ -49,6 +49,30 @@ export class UsersService {
     });
     return {
       response_message: ResponseMessage.USER_CREATED,
+      response_data: { token: token, userId: user._id, role: user.role },
+    };
+  }
+
+  async login(loginData: LoginDTO): Promise<CommonResponse> {
+    const { email, password } = loginData;
+
+    const user = await this.userRepo.getUserByEmail(email);
+    if (!user) {
+      throw new BadRequestException(ResponseMessage.INVALID_EMAIL_OR_PASSWORD);
+    }
+    const isValidPassword = this.authService.compareHash(
+      password,
+      user.password,
+    );
+    if (!isValidPassword) {
+      throw new BadRequestException(ResponseMessage.INVALID_EMAIL_OR_PASSWORD);
+    }
+    const token = await this.authService.generateJwtToken({
+      id: user._id,
+      role: user.role,
+    });
+    return {
+      response_message: ResponseMessage.LOGIN_SUCCESSFULLY,
       response_data: { token: token, userId: user._id, role: user.role },
     };
   }
