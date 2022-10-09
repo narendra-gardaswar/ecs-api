@@ -47,6 +47,7 @@ export class AuthService {
   async generateJwtToken(user: IGetTokens) {
     const payload = {
       id: user.id,
+      role: user.role,
     };
 
     return await this.jwtService.signAsync(payload, {

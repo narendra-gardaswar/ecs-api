@@ -49,7 +49,7 @@ export class UsersService {
     });
     return {
       response_message: ResponseMessage.USER_CREATED,
-      response_data: { token: token },
+      response_data: { token: token, userId: user._id, role: user.role },
     };
   }
 }

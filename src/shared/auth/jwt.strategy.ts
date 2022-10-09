@@ -10,7 +10,6 @@ export class LoggedInUser {
   role: UserRoles;
   iat: number;
   exp: number;
-  sub: string;
 }
 
 @Injectable()
